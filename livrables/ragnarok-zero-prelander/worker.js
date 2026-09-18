@@ -5,7 +5,7 @@ const HTML = `
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Ragnarok Zero: Global — Réclame ta récompense</title>
 <meta name="description" content="Ragnarok Zero: Global. Débloque ta récompense légendaire et rejoins la bataille dès maintenant.">
 <meta name="robots" content="noindex, nofollow">
@@ -19,11 +19,11 @@ const HTML = `
     --ember:#ff5a2e;
     --bg-0:#07060a;
     --bg-1:#120e17;
-    --bg-2:#1c1420;
     --ink:#f4ead9;
     --ink-dim:#b9ada0;
     --line:rgba(243,198,95,0.25);
     --green:#3ecf6e;
+    --vh:1vh;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html,body{
@@ -31,10 +31,16 @@ const HTML = `
     color:var(--ink);
     font-family:'Trebuchet MS','Segoe UI',Verdana,sans-serif;
     -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+    overflow:hidden;
     width:100%;
+    height:100%;
   }
-  body{min-height:100vh; position:relative;}
+  body{
+    height:calc(var(--vh, 1vh) * 100);
+    position:relative;
+    display:flex;
+    flex-direction:column;
+  }
 
   /* ---------- Preloader ---------- */
   #preloader{
@@ -47,237 +53,157 @@ const HTML = `
   #preloader.hidden{opacity:0; visibility:hidden; pointer-events:none;}
   .pre-logo{
     font-family:'Georgia',serif; font-weight:900; letter-spacing:3px;
-    font-size:22px; color:var(--gold);
+    font-size:20px; color:var(--gold);
     text-shadow:0 0 18px rgba(243,198,95,.6);
   }
-  .pre-bar{width:200px; height:6px; background:#2a2030; border-radius:6px; overflow:hidden; border:1px solid var(--line);}
-  .pre-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--ember),var(--gold)); animation:preload 1.1s ease forwards;}
+  .pre-bar{width:180px; height:6px; background:#2a2030; border-radius:6px; overflow:hidden; border:1px solid var(--line);}
+  .pre-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--ember),var(--gold)); animation:preload 1s ease forwards;}
   @keyframes preload{ to{width:100%;} }
-  .pre-txt{font-size:12px; color:var(--ink-dim); letter-spacing:1px;}
+  .pre-txt{font-size:11px; color:var(--ink-dim); letter-spacing:1px;}
 
   /* ---------- Background FX ---------- */
   #embers{position:fixed; inset:0; z-index:0; pointer-events:none;}
-  .bg-runes{
-    position:fixed; inset:0; z-index:0; opacity:.08; pointer-events:none;
-    background-image:
-      radial-gradient(1px 1px at 20% 30%, var(--gold) 0, transparent 100%),
-      radial-gradient(1px 1px at 70% 60%, var(--gold) 0, transparent 100%),
-      radial-gradient(1px 1px at 40% 80%, var(--gold) 0, transparent 100%);
-    background-size:100% 100%;
-  }
   .vignette{position:fixed; inset:0; z-index:1; pointer-events:none;
-    background:radial-gradient(ellipse at 50% 0%, transparent 40%, rgba(0,0,0,.55) 100%);
+    background:radial-gradient(ellipse at 50% 0%, transparent 35%, rgba(0,0,0,.6) 100%);
   }
 
-  .wrap{position:relative; z-index:2; max-width:480px; margin:0 auto; padding:0 16px 120px;}
+  .page{
+    position:relative; z-index:2;
+    flex:1; min-height:0;
+    width:100%; max-width:460px; margin:0 auto;
+    display:flex; flex-direction:column;
+    padding:calc(8px + env(safe-area-inset-top)) 18px calc(10px + env(safe-area-inset-bottom));
+  }
 
   /* ---------- Top trust bar ---------- */
   .topbar{
+    flex:0 0 auto;
     display:flex; align-items:center; justify-content:space-between;
-    padding:10px 4px; font-size:12px; color:var(--ink-dim);
-    border-bottom:1px solid var(--line);
+    padding:4px 2px 8px; font-size:11px; color:var(--ink-dim);
   }
   .topbar .stars{color:var(--gold); font-weight:700;}
   .ribbon{
-    display:inline-flex; align-items:center; gap:6px;
+    display:inline-flex; align-items:center; gap:5px;
     background:linear-gradient(90deg,var(--ember),var(--gold-2));
-    color:#1a0f06; font-weight:800; font-size:10px; letter-spacing:.5px;
+    color:#1a0f06; font-weight:800; font-size:9.5px; letter-spacing:.4px;
     padding:3px 8px; border-radius:20px; text-transform:uppercase;
   }
 
-  /* ---------- Hero ---------- */
-  .hero{text-align:center; padding:26px 0 10px;}
+  /* ---------- Center content ---------- */
+  .center{
+    flex:1 1 auto; min-height:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; gap:clamp(6px,2vh,14px);
+  }
+
   .hero-badge{
-    display:inline-block; font-size:11px; letter-spacing:2px; color:var(--gold);
-    border:1px solid var(--line); padding:4px 12px; border-radius:20px; margin-bottom:14px;
+    font-size:10px; letter-spacing:1.5px; color:var(--gold);
+    border:1px solid var(--line); padding:3px 10px; border-radius:20px;
     text-transform:uppercase; background:rgba(243,198,95,.06);
   }
-  .hero h1{
+  h1{
     font-family:'Georgia',serif; font-weight:900;
-    font-size:40px; line-height:1.05; letter-spacing:1px;
+    font-size:clamp(24px,7.5vw,34px); line-height:1.05; letter-spacing:.5px;
     background:linear-gradient(180deg,#fff4d6 0%, var(--gold) 55%, var(--gold-2) 100%);
     -webkit-background-clip:text; background-clip:text; color:transparent;
-    text-shadow:0 4px 24px rgba(243,198,95,.25);
   }
-  .hero h1 small{
-    display:block; font-size:15px; letter-spacing:6px; color:var(--ink-dim);
-    -webkit-text-fill-color:var(--ink-dim); margin-top:6px; font-family:'Trebuchet MS',sans-serif;
+  h1 small{
+    display:block; font-size:clamp(10px,2.6vw,13px); letter-spacing:5px; color:var(--ink-dim);
+    -webkit-text-fill-color:var(--ink-dim); margin-top:4px; font-family:'Trebuchet MS',sans-serif;
   }
-  .rune-divider{
-    width:120px; height:2px; margin:16px auto; position:relative;
-    background:linear-gradient(90deg,transparent,var(--gold),transparent);
-  }
-  .rune-divider::before,.rune-divider::after{
-    content:'◆'; position:absolute; top:50%; transform:translateY(-50%);
-    color:var(--gold); font-size:10px;
-  }
-  .rune-divider::before{left:-16px;} .rune-divider::after{right:-16px;}
 
-  .hero p{color:var(--ink-dim); font-size:14px; max-width:340px; margin:0 auto; line-height:1.5;}
-
-  /* ---------- Chest / reward reveal ---------- */
-  .chest-zone{margin:26px 0; text-align:center;}
   .chest{
-    width:140px; height:120px; margin:0 auto 14px; position:relative;
-    filter:drop-shadow(0 0 30px rgba(243,198,95,.35));
+    width:clamp(80px,22vw,110px); height:clamp(68px,19vw,94px); position:relative;
+    filter:drop-shadow(0 0 24px rgba(243,198,95,.35));
   }
   .chest-glow{
-    position:absolute; inset:-30px; border-radius:50%;
+    position:absolute; inset:-24px; border-radius:50%;
     background:radial-gradient(circle, rgba(243,198,95,.35) 0%, transparent 70%);
     animation:pulse 2.2s ease-in-out infinite;
   }
   @keyframes pulse{0%,100%{opacity:.5; transform:scale(.9);} 50%{opacity:1; transform:scale(1.05);}}
   .chest-body{
-    position:absolute; left:10px; right:10px; bottom:6px; top:52px;
+    position:absolute; left:8px; right:8px; bottom:4px; top:42px;
     background:linear-gradient(180deg,#8a5a24,#5c3813);
-    border:3px solid var(--gold-2); border-radius:0 0 14px 14px;
+    border:3px solid var(--gold-2); border-radius:0 0 12px 12px;
     box-shadow:inset 0 4px 10px rgba(0,0,0,.4);
   }
   .chest-lid{
-    position:absolute; left:6px; right:6px; top:14px; height:46px;
+    position:absolute; left:5px; right:5px; top:10px; height:38px;
     background:linear-gradient(180deg,#c9902f,#8a5a24);
-    border:3px solid var(--gold-2); border-radius:14px 14px 6px 6px;
+    border:3px solid var(--gold-2); border-radius:12px 12px 5px 5px;
     transform-origin:bottom center;
-    animation:lid-pop 1.6s ease-in-out .9s infinite;
-    box-shadow:0 -2px 10px rgba(243,198,95,.4);
+    animation:lid-pop 1.6s ease-in-out .8s infinite;
   }
   @keyframes lid-pop{
     0%,60%,100%{transform:rotateX(0deg);}
     70%,90%{transform:rotateX(-38deg);}
   }
   .chest-lock{
-    position:absolute; left:50%; top:36px; transform:translateX(-50%);
-    width:22px; height:22px; border-radius:50%;
-    background:var(--gold); box-shadow:0 0 14px var(--gold);
-    display:flex; align-items:center; justify-content:center; font-size:12px; color:#1a0f06; z-index:2;
+    position:absolute; left:50%; top:28px; transform:translateX(-50%);
+    width:18px; height:18px; border-radius:50%;
+    background:var(--gold); box-shadow:0 0 12px var(--gold);
+    display:flex; align-items:center; justify-content:center; font-size:10px; color:#1a0f06; z-index:2;
   }
   .chest-burst{
-    position:absolute; left:50%; top:8px; transform:translateX(-50%);
-    font-size:34px; opacity:0; animation:burst 1.6s ease-in-out .9s infinite;
+    position:absolute; left:50%; top:4px; transform:translateX(-50%);
+    font-size:26px; opacity:0; animation:burst 1.6s ease-in-out .8s infinite;
   }
   @keyframes burst{
-    0%,60%{opacity:0; transform:translate(-50%,10px) scale(.6);}
-    75%{opacity:1; transform:translate(-50%,-24px) scale(1.15);}
-    95%,100%{opacity:0; transform:translate(-50%,-40px) scale(1.3);}
+    0%,60%{opacity:0; transform:translate(-50%,8px) scale(.6);}
+    75%{opacity:1; transform:translate(-50%,-18px) scale(1.15);}
+    95%,100%{opacity:0; transform:translate(-50%,-30px) scale(1.3);}
   }
 
   .reward-card{
     background:linear-gradient(180deg, rgba(62,207,110,.12), rgba(62,207,110,.03));
     border:1px solid rgba(62,207,110,.4);
-    border-radius:14px; padding:16px 14px; margin-top:8px;
-    opacity:0; transform:translateY(10px);
-    animation:reveal .6s ease 1.7s forwards;
+    border-radius:12px; padding:10px 14px;
+    opacity:0; transform:translateY(8px);
+    animation:reveal .6s ease 1.6s forwards;
+    width:100%;
   }
   @keyframes reveal{ to{opacity:1; transform:translateY(0);} }
   .reward-card .tag{
-    display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800;
-    color:var(--green); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;
+    display:inline-flex; align-items:center; gap:5px; font-size:10px; font-weight:800;
+    color:var(--green); text-transform:uppercase; letter-spacing:.8px; margin-bottom:6px;
   }
-  .reward-card .tag::before{content:'✓'; background:var(--green); color:#06210f; width:16px; height:16px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:10px;}
-  .reward-list{display:flex; flex-direction:column; gap:8px; text-align:left; font-size:13.5px;}
-  .reward-list div{display:flex; align-items:center; gap:8px; color:var(--ink);}
-  .reward-list .ic{font-size:16px;}
+  .reward-card .tag::before{content:'✓'; background:var(--green); color:#06210f; width:14px; height:14px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:9px;}
+  .reward-list{display:flex; justify-content:center; gap:10px; flex-wrap:wrap; font-size:clamp(10.5px,3vw,12.5px);}
+  .reward-list div{display:flex; align-items:center; gap:5px; color:var(--ink); white-space:nowrap;}
 
-  /* ---------- CTA ---------- */
-  .cta-zone{margin:22px 0 10px; text-align:center;}
+  /* ---------- Bottom / CTA ---------- */
+  .bottom{flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:8px; padding-top:6px;}
   .cta-btn{
-    display:block; width:100%; text-decoration:none;
+    display:block; width:100%; text-decoration:none; text-align:center;
     background:linear-gradient(90deg,#ffd873,var(--gold),var(--ember));
-    color:#1a0f06; font-weight:900; font-size:16px; letter-spacing:.5px;
-    padding:16px 18px; border-radius:12px; border:none; cursor:pointer;
-    box-shadow:0 10px 26px rgba(255,90,46,.35), inset 0 1px 0 rgba(255,255,255,.5);
+    color:#1a0f06; font-weight:900; font-size:clamp(14px,4vw,17px); letter-spacing:.3px;
+    padding:clamp(13px,3.4vh,16px) 16px; border-radius:12px; border:none; cursor:pointer;
+    box-shadow:0 10px 24px rgba(255,90,46,.35), inset 0 1px 0 rgba(255,255,255,.5);
     position:relative; overflow:hidden;
     animation:cta-pulse 1.8s ease-in-out infinite;
   }
-  @keyframes cta-pulse{0%,100%{transform:scale(1);} 50%{transform:scale(1.025);}}
+  @keyframes cta-pulse{0%,100%{transform:scale(1);} 50%{transform:scale(1.02);}}
   .cta-btn::after{
     content:''; position:absolute; top:0; left:-60%; width:40%; height:100%;
     background:linear-gradient(120deg, transparent, rgba(255,255,255,.65), transparent);
     animation:shine 2.4s ease-in-out infinite;
   }
   @keyframes shine{ 0%{left:-60%;} 60%,100%{left:130%;} }
-  .cta-sub{font-size:11.5px; color:var(--ink-dim); margin-top:8px;}
+
+  .cta-sub{font-size:10.5px; color:var(--ink-dim);}
 
   .timer{
-    display:flex; align-items:center; justify-content:center; gap:8px;
-    font-size:12.5px; color:var(--ink-dim); margin-top:14px;
-    border:1px dashed var(--line); border-radius:10px; padding:8px 10px;
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    font-size:11px; color:var(--ink-dim);
+    border:1px dashed var(--line); border-radius:10px; padding:6px 10px; width:100%;
   }
-  .timer b{color:var(--gold); font-variant-numeric:tabular-nums; letter-spacing:1px;}
+  .timer b{color:var(--gold); font-variant-numeric:tabular-nums; letter-spacing:.5px;}
   .timer.urgent b{color:var(--ember);}
 
-  /* ---------- Stats row ---------- */
-  .stats{display:flex; justify-content:space-between; gap:8px; margin:26px 0;}
-  .stat{
-    flex:1; text-align:center; background:var(--bg-1); border:1px solid var(--line);
-    border-radius:12px; padding:12px 6px;
-  }
-  .stat b{display:block; font-size:16px; color:var(--gold); font-family:Georgia,serif;}
-  .stat span{font-size:10.5px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.5px;}
-
-  /* ---------- Features / screenshots ---------- */
-  .section-title{
-    font-family:Georgia,serif; font-size:18px; color:var(--gold);
-    text-align:center; margin:8px 0 14px; letter-spacing:.5px;
-  }
-  .shot-scroll{
-    display:flex; gap:10px; overflow-x:auto; padding-bottom:6px; scrollbar-width:none;
-  }
-  .shot-scroll::-webkit-scrollbar{display:none;}
-  .shot{
-    flex:0 0 150px; height:190px; border-radius:14px; border:1px solid var(--line);
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
-    position:relative; overflow:hidden; text-align:center; padding:10px;
-  }
-  .shot .ic{font-size:34px; filter:drop-shadow(0 0 8px rgba(243,198,95,.5));}
-  .shot span{font-size:12px; color:var(--ink); font-weight:700;}
-  .shot small{font-size:10px; color:var(--ink-dim);}
-  .shot.s1{background:linear-gradient(160deg,#3a1420,#1c0a12);}
-  .shot.s2{background:linear-gradient(160deg,#132a2f,#0a1618);}
-  .shot.s3{background:linear-gradient(160deg,#2a1f3a,#150e1f);}
-  .shot.s4{background:linear-gradient(160deg,#332510,#170f07);}
-
-  .features{display:flex; flex-direction:column; gap:10px; margin-top:20px;}
-  .feature{
-    display:flex; gap:12px; align-items:flex-start;
-    background:var(--bg-1); border:1px solid var(--line); border-radius:12px; padding:12px;
-  }
-  .feature .ic{font-size:20px; line-height:1;}
-  .feature h4{font-size:13.5px; color:var(--ink); margin-bottom:3px;}
-  .feature p{font-size:12px; color:var(--ink-dim); line-height:1.4;}
-
-  /* ---------- Store badges ---------- */
-  .stores{display:flex; gap:10px; margin:24px 0 6px;}
-  .store{
-    flex:1; display:flex; align-items:center; justify-content:center; gap:8px;
-    background:var(--bg-2); border:1px solid var(--line); border-radius:10px;
-    padding:10px; font-size:12px; color:var(--ink-dim);
-  }
-  .store b{color:var(--ink); font-size:12.5px;}
-
-  /* ---------- Sticky CTA ---------- */
-  .sticky-cta{
-    position:fixed; left:0; right:0; bottom:0; z-index:50;
-    padding:10px 14px calc(10px + env(safe-area-inset-bottom));
-    background:linear-gradient(180deg, transparent, rgba(7,6,10,.92) 30%);
-    transform:translateY(120%); transition:transform .35s ease;
-  }
-  .sticky-cta.show{transform:translateY(0);}
-  .sticky-cta a{
-    display:flex; align-items:center; justify-content:center; gap:8px;
-    background:linear-gradient(90deg,#ffd873,var(--gold),var(--ember));
-    color:#1a0f06; font-weight:900; font-size:14.5px;
-    padding:13px; border-radius:10px; text-decoration:none;
-    box-shadow:0 8px 22px rgba(255,90,46,.4);
-  }
-
-  /* ---------- Footer ---------- */
-  footer{margin-top:30px; padding-top:16px; border-top:1px solid var(--line);}
-  footer p{font-size:10.5px; color:#6d6459; line-height:1.6; margin-bottom:8px;}
-  footer .brand{font-size:11px; color:var(--ink-dim); text-align:center; margin-top:10px;}
-
-  @media (min-width:520px){
-    .wrap{max-width:520px;}
+  .disclaimer{
+    font-size:9px; color:#6d6459; text-align:center; line-height:1.4;
+    max-width:400px;
   }
 </style>
 </head>
@@ -290,24 +216,20 @@ const HTML = `
   </div>
 
   <canvas id="embers"></canvas>
-  <div class="bg-runes"></div>
   <div class="vignette"></div>
 
-  <div class="wrap">
+  <div class="page">
 
     <div class="topbar">
       <span class="stars">★★★★★ <span style="color:var(--ink-dim)">4.8</span></span>
       <span class="ribbon">🔥 Lancement Global</span>
     </div>
 
-    <div class="hero">
+    <div class="center">
       <span class="hero-badge">Édition Limitée</span>
-      <h1>RAGNAROK ZERO<small>GLOBAL LAUNCH</small></h1>
-      <div class="rune-divider"></div>
-      <p>Les neuf royaumes s'embrasent. Rejoins la bataille aujourd'hui et débloque ta récompense de guerrier avant la fin de l'offre.</p>
-    </div>
 
-    <div class="chest-zone">
+      <h1>RAGNAROK ZERO<small>GLOBAL LAUNCH</small></h1>
+
       <div class="chest">
         <div class="chest-glow"></div>
         <div class="chest-burst">✨</div>
@@ -319,66 +241,38 @@ const HTML = `
       <div class="reward-card">
         <span class="tag">Récompense débloquée</span>
         <div class="reward-list">
-          <div><span class="ic">💎</span> 5 000 Zeny de bienvenue</div>
-          <div><span class="ic">⚔️</span> Skin légendaire « Freyja »</div>
-          <div><span class="ic">🛡️</span> Accès prioritaire à la guilde</div>
+          <div>💎 5 000 Zeny</div>
+          <div>⚔️ Skin « Freyja »</div>
+          <div>🛡️ Accès guilde</div>
         </div>
       </div>
     </div>
 
-    <div class="cta-zone">
+    <div class="bottom">
       <a href="#" id="ctaMain" class="cta-btn">⚔ RÉCLAMER MA RÉCOMPENSE</a>
-      <div class="cta-sub">Installation gratuite · Disponible sur iOS &amp; Android</div>
+      <div class="cta-sub">Installation gratuite · iOS &amp; Android</div>
       <div class="timer" id="timer">⏳ Offre réservée encore <b id="timerVal">09:58</b></div>
+      <div class="disclaimer">Communication publicitaire pour Ragnarok Zero: Global. En cliquant, tu es redirigé vers la page officielle de téléchargement. Offre soumise à disponibilité selon la région.</div>
     </div>
 
-    <div class="stats">
-      <div class="stat"><b>10M+</b><span>Guerriers</span></div>
-      <div class="stat"><b>4.8★</b><span>Note globale</span></div>
-      <div class="stat"><b>#1</b><span>RPG du mois</span></div>
-    </div>
-
-    <div>
-      <div class="section-title">Le champ de bataille t'attend</div>
-      <div class="shot-scroll">
-        <div class="shot s1"><span class="ic">⚔️</span><span>Combats Épiques</span><small>PvP en temps réel</small></div>
-        <div class="shot s2"><span class="ic">🗺️</span><span>Monde Ouvert</span><small>9 royaumes à explorer</small></div>
-        <div class="shot s3"><span class="ic">🐉</span><span>Boss Légendaires</span><small>Raids en guilde</small></div>
-        <div class="shot s4"><span class="ic">💰</span><span>Butin Rare</span><small>Loot exclusif</small></div>
-      </div>
-    </div>
-
-    <div class="features">
-      <div class="feature"><span class="ic">🌍</span><div><h4>Serveurs Globaux</h4><p>Affronte des joueurs du monde entier en cross-play.</p></div></div>
-      <div class="feature"><span class="ic">⚡</span><div><h4>Action instantanée</h4><p>Aucune installation lourde, jouable en quelques secondes.</p></div></div>
-      <div class="feature"><span class="ic">🎁</span><div><h4>Récompense de lancement</h4><p>Offre limitée réservée aux premiers guerriers inscrits.</p></div></div>
-    </div>
-
-    <div class="stores">
-      <div class="store">📱 <b>App Store</b></div>
-      <div class="store">🤖 <b>Google Play</b></div>
-    </div>
-
-    <footer>
-      <p>Ceci est une communication publicitaire pour l'application Ragnarok Zero: Global. En cliquant sur « Réclamer ma récompense », tu seras redirigé vers la page officielle de téléchargement. Les récompenses de lancement peuvent varier selon la région et la disponibilité de l'offre. Application réservée aux utilisateurs majeurs ou disposant de l'autorisation parentale requise, conformément aux conditions de la plateforme de distribution.</p>
-      <div class="brand">© Ragnarok Zero — Tous droits réservés</div>
-    </footer>
-  </div>
-
-  <div class="sticky-cta" id="stickyCta">
-    <a href="#" id="ctaSticky">⚔ Réclamer ma récompense →</a>
   </div>
 
 <script>
 (function(){
-  // Preloader
+  // Ajuste --vh pour gérer les barres d'UI mobiles (iOS Safari etc.)
+  function setVh(){
+    document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
+  }
+  setVh();
+  window.addEventListener('resize', setVh);
+  window.addEventListener('orientationchange', setVh);
+
   window.addEventListener('load', function(){
     setTimeout(function(){
       document.getElementById('preloader').classList.add('hidden');
-    }, 900);
+    }, 800);
   });
 
-  // Offer URL — remplace ici si besoin
   var OFFER_URL = "${OFFER_URL}";
 
   function buildOfferUrl(){
@@ -389,24 +283,13 @@ const HTML = `
   }
 
   var finalUrl = buildOfferUrl();
-  ['ctaMain','ctaSticky'].forEach(function(id){
-    var el = document.getElementById(id);
-    if(el){
-      el.href = finalUrl;
-      el.addEventListener('click', function(){
-        el.style.transform = 'scale(0.97)';
-      });
-    }
-  });
-
-  // Sticky CTA reveal on scroll
-  var sticky = document.getElementById('stickyCta');
-  var ctaZone = document.querySelector('.cta-zone');
-  window.addEventListener('scroll', function(){
-    var rect = ctaZone.getBoundingClientRect();
-    if(rect.bottom < 0){ sticky.classList.add('show'); }
-    else{ sticky.classList.remove('show'); }
-  });
+  var cta = document.getElementById('ctaMain');
+  if(cta){
+    cta.href = finalUrl;
+    cta.addEventListener('click', function(){
+      cta.style.transform = 'scale(0.97)';
+    });
+  }
 
   // Countdown timer
   var totalSeconds = 9*60 + 58;
@@ -449,7 +332,7 @@ const HTML = `
 
   function draw(){
     ctx.clearRect(0,0,W,H);
-    if(particles.length < 60 && Math.random() < 0.6) spawn();
+    if(particles.length < 50 && Math.random() < 0.55) spawn();
     for(var i=particles.length-1;i>=0;i--){
       var p = particles[i];
       p.y -= p.vy; p.x += p.vx; p.life++;
