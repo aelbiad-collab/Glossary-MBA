@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Ragnarok Zero: Global — Réclame ta récompense</title>
-<meta name="description" content="Ragnarok Zero: Global. Débloque ta récompense légendaire et rejoins la bataille dès maintenant.">
+<title>Ragnarok Zero: Global — Claim Your Reward</title>
+<meta name="description" content="Ragnarok Zero: Global. Unlock your legendary reward and join the battle now.">
 <meta name="robots" content="noindex, nofollow">
-<meta property="og:title" content="Ragnarok Zero: Global — Récompense débloquée">
-<meta property="og:description" content="Rejoins la bataille de Ragnarok Zero et réclame ta récompense de lancement.">
+<meta property="og:title" content="Ragnarok Zero: Global — Reward Unlocked">
+<meta property="og:description" content="Join the battle of Ragnarok Zero and claim your launch reward.">
 <meta property="og:type" content="website">
 <style>
   :root{
@@ -59,7 +59,6 @@
   .pre-txt{font-size:11px; color:var(--ink-dim); letter-spacing:1px;}
 
   /* ---------- Background FX ---------- */
-  #embers{position:fixed; inset:0; z-index:0; pointer-events:none;}
   .vignette{position:fixed; inset:0; z-index:1; pointer-events:none;
     background:radial-gradient(ellipse at 50% 0%, transparent 35%, rgba(0,0,0,.6) 100%);
   }
@@ -76,7 +75,7 @@
   .topbar{
     flex:0 0 auto;
     display:flex; align-items:center; justify-content:space-between;
-    padding:4px 2px 8px; font-size:11px; color:var(--ink-dim);
+    padding:2px 2px 6px; font-size:11px; color:var(--ink-dim);
   }
   .topbar .stars{color:var(--gold); font-weight:700;}
   .ribbon{
@@ -90,92 +89,96 @@
   .center{
     flex:1 1 auto; min-height:0;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center; gap:clamp(6px,2vh,14px);
+    text-align:center; gap:clamp(5px,1.6vh,10px);
   }
 
   .hero-badge{
-    font-size:10px; letter-spacing:1.5px; color:var(--gold);
+    font-size:9.5px; letter-spacing:1.5px; color:var(--gold);
     border:1px solid var(--line); padding:3px 10px; border-radius:20px;
     text-transform:uppercase; background:rgba(243,198,95,.06);
   }
   h1{
     font-family:'Georgia',serif; font-weight:900;
-    font-size:clamp(24px,7.5vw,34px); line-height:1.05; letter-spacing:.5px;
+    font-size:clamp(21px,6.6vw,30px); line-height:1.05; letter-spacing:.5px;
     background:linear-gradient(180deg,#fff4d6 0%, var(--gold) 55%, var(--gold-2) 100%);
     -webkit-background-clip:text; background-clip:text; color:transparent;
   }
   h1 small{
-    display:block; font-size:clamp(10px,2.6vw,13px); letter-spacing:5px; color:var(--ink-dim);
-    -webkit-text-fill-color:var(--ink-dim); margin-top:4px; font-family:'Trebuchet MS',sans-serif;
+    display:block; font-size:clamp(9px,2.3vw,12px); letter-spacing:4px; color:var(--ink-dim);
+    -webkit-text-fill-color:var(--ink-dim); margin-top:3px; font-family:'Trebuchet MS',sans-serif;
   }
 
-  .chest{
-    width:clamp(80px,22vw,110px); height:clamp(68px,19vw,94px); position:relative;
-    filter:drop-shadow(0 0 24px rgba(243,198,95,.35));
-  }
-  .chest-glow{
-    position:absolute; inset:-24px; border-radius:50%;
-    background:radial-gradient(circle, rgba(243,198,95,.35) 0%, transparent 70%);
-    animation:pulse 2.2s ease-in-out infinite;
-  }
-  @keyframes pulse{0%,100%{opacity:.5; transform:scale(.9);} 50%{opacity:1; transform:scale(1.05);}}
-  .chest-body{
-    position:absolute; left:8px; right:8px; bottom:4px; top:42px;
-    background:linear-gradient(180deg,#8a5a24,#5c3813);
-    border:3px solid var(--gold-2); border-radius:0 0 12px 12px;
-    box-shadow:inset 0 4px 10px rgba(0,0,0,.4);
-  }
-  .chest-lid{
-    position:absolute; left:5px; right:5px; top:10px; height:38px;
-    background:linear-gradient(180deg,#c9902f,#8a5a24);
-    border:3px solid var(--gold-2); border-radius:12px 12px 5px 5px;
-    transform-origin:bottom center;
-    animation:lid-pop 1.6s ease-in-out .8s infinite;
-  }
-  @keyframes lid-pop{
-    0%,60%,100%{transform:rotateX(0deg);}
-    70%,90%{transform:rotateX(-38deg);}
-  }
-  .chest-lock{
-    position:absolute; left:50%; top:28px; transform:translateX(-50%);
-    width:18px; height:18px; border-radius:50%;
-    background:var(--gold); box-shadow:0 0 12px var(--gold);
-    display:flex; align-items:center; justify-content:center; font-size:10px; color:#1a0f06; z-index:2;
-  }
-  .chest-burst{
-    position:absolute; left:50%; top:4px; transform:translateX(-50%);
-    font-size:26px; opacity:0; animation:burst 1.6s ease-in-out .8s infinite;
-  }
-  @keyframes burst{
-    0%,60%{opacity:0; transform:translate(-50%,8px) scale(.6);}
-    75%{opacity:1; transform:translate(-50%,-18px) scale(1.15);}
-    95%,100%{opacity:0; transform:translate(-50%,-30px) scale(1.3);}
-  }
-
-  .reward-card{
-    background:linear-gradient(180deg, rgba(62,207,110,.12), rgba(62,207,110,.03));
-    border:1px solid rgba(62,207,110,.4);
-    border-radius:12px; padding:10px 14px;
-    opacity:0; transform:translateY(8px);
-    animation:reveal .6s ease 1.6s forwards;
+  /* ---------- Video panel (canvas-animated, styled as a trailer player) ---------- */
+  .video-frame{
+    position:relative;
     width:100%;
+    height:clamp(130px, 32vh, 230px);
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    box-shadow:0 10px 30px rgba(0,0,0,.5), 0 0 0 1px rgba(243,198,95,.08) inset;
+    background:#0a0710;
+  }
+  .video-frame canvas{
+    position:absolute; inset:0; width:100%; height:100%; display:block;
+  }
+  .video-chrome{
+    position:absolute; inset:0; pointer-events:none;
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding:8px 10px;
+  }
+  .video-tag{
+    align-self:flex-start;
+    display:inline-flex; align-items:center; gap:5px;
+    background:rgba(7,6,10,.55); backdrop-filter:blur(2px);
+    border:1px solid var(--line); color:var(--gold);
+    font-size:9px; font-weight:800; letter-spacing:1px; text-transform:uppercase;
+    padding:3px 8px; border-radius:6px;
+  }
+  .video-mute{
+    position:absolute; top:8px; right:10px;
+    width:22px; height:22px; border-radius:50%;
+    background:rgba(7,6,10,.55); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--ink-dim);
+  }
+  .video-play{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:46px; height:46px; border-radius:50%;
+    background:rgba(243,198,95,.92); color:#1a0f06;
+    display:flex; align-items:center; justify-content:center; font-size:18px;
+    box-shadow:0 0 20px rgba(243,198,95,.6);
+    transition:opacity .5s ease, transform .5s ease;
+  }
+  .video-play.hide{opacity:0; transform:translate(-50%,-50%) scale(.7);}
+  .video-progress{
+    height:3px; width:100%; background:rgba(255,255,255,.15); border-radius:3px; overflow:hidden;
+  }
+  .video-progress-fill{
+    height:100%; width:0%;
+    background:linear-gradient(90deg,var(--ember),var(--gold));
+    animation:videoProgress 7s linear infinite;
+  }
+  @keyframes videoProgress{ 0%{width:0%;} 100%{width:100%;} }
+
+  .reward-line{
+    display:inline-flex; align-items:center; gap:6px;
+    background:linear-gradient(180deg, rgba(62,207,110,.14), rgba(62,207,110,.04));
+    border:1px solid rgba(62,207,110,.4);
+    border-radius:20px; padding:6px 12px;
+    font-size:clamp(10.5px,2.9vw,12.5px); color:var(--ink);
+    opacity:0; transform:translateY(6px);
+    animation:reveal .6s ease 1.4s forwards;
   }
   @keyframes reveal{ to{opacity:1; transform:translateY(0);} }
-  .reward-card .tag{
-    display:inline-flex; align-items:center; gap:5px; font-size:10px; font-weight:800;
-    color:var(--green); text-transform:uppercase; letter-spacing:.8px; margin-bottom:6px;
-  }
-  .reward-card .tag::before{content:'✓'; background:var(--green); color:#06210f; width:14px; height:14px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:9px;}
-  .reward-list{display:flex; justify-content:center; gap:10px; flex-wrap:wrap; font-size:clamp(10.5px,3vw,12.5px);}
-  .reward-list div{display:flex; align-items:center; gap:5px; color:var(--ink); white-space:nowrap;}
+  .reward-line b{color:var(--green); font-weight:800;}
 
   /* ---------- Bottom / CTA ---------- */
-  .bottom{flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:8px; padding-top:6px;}
+  .bottom{flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:7px; padding-top:6px;}
   .cta-btn{
     display:block; width:100%; text-decoration:none; text-align:center;
     background:linear-gradient(90deg,#ffd873,var(--gold),var(--ember));
     color:#1a0f06; font-weight:900; font-size:clamp(14px,4vw,17px); letter-spacing:.3px;
-    padding:clamp(13px,3.4vh,16px) 16px; border-radius:12px; border:none; cursor:pointer;
+    padding:clamp(13px,3.2vh,16px) 16px; border-radius:12px; border:none; cursor:pointer;
     box-shadow:0 10px 24px rgba(255,90,46,.35), inset 0 1px 0 rgba(255,255,255,.5);
     position:relative; overflow:hidden;
     animation:cta-pulse 1.8s ease-in-out infinite;
@@ -209,54 +212,48 @@
   <div id="preloader">
     <div class="pre-logo">RAGNAROK ZERO</div>
     <div class="pre-bar"><div class="pre-fill"></div></div>
-    <div class="pre-txt">Chargement de la bataille…</div>
+    <div class="pre-txt">Loading the battle…</div>
   </div>
 
-  <canvas id="embers"></canvas>
   <div class="vignette"></div>
 
   <div class="page">
 
     <div class="topbar">
       <span class="stars">★★★★★ <span style="color:var(--ink-dim)">4.8</span></span>
-      <span class="ribbon">🔥 Lancement Global</span>
+      <span class="ribbon">🔥 Global Launch</span>
     </div>
 
     <div class="center">
-      <span class="hero-badge">Édition Limitée</span>
+      <span class="hero-badge">Limited Edition</span>
 
       <h1>RAGNAROK ZERO<small>GLOBAL LAUNCH</small></h1>
 
-      <div class="chest">
-        <div class="chest-glow"></div>
-        <div class="chest-burst">✨</div>
-        <div class="chest-body"></div>
-        <div class="chest-lid"></div>
-        <div class="chest-lock">🔒</div>
+      <div class="video-frame">
+        <canvas id="videoCanvas"></canvas>
+        <div class="video-chrome">
+          <div class="video-tag">▶ Official Trailer</div>
+          <div class="video-progress"><div class="video-progress-fill"></div></div>
+        </div>
+        <div class="video-mute">🔇</div>
+        <div class="video-play" id="videoPlay">▶</div>
       </div>
 
-      <div class="reward-card">
-        <span class="tag">Récompense débloquée</span>
-        <div class="reward-list">
-          <div>💎 5 000 Zeny</div>
-          <div>⚔️ Skin « Freyja »</div>
-          <div>🛡️ Accès guilde</div>
-        </div>
-      </div>
+      <div class="reward-line">🎁 <b>Reward Unlocked:</b> 5,000 Zeny + Legendary Skin</div>
     </div>
 
     <div class="bottom">
-      <a href="#" id="ctaMain" class="cta-btn">⚔ RÉCLAMER MA RÉCOMPENSE</a>
-      <div class="cta-sub">Installation gratuite · iOS &amp; Android</div>
-      <div class="timer" id="timer">⏳ Offre réservée encore <b id="timerVal">09:58</b></div>
-      <div class="disclaimer">Communication publicitaire pour Ragnarok Zero: Global. En cliquant, tu es redirigé vers la page officielle de téléchargement. Offre soumise à disponibilité selon la région.</div>
+      <a href="#" id="ctaMain" class="cta-btn">⚔ CLAIM MY REWARD</a>
+      <div class="cta-sub">Free install · iOS &amp; Android</div>
+      <div class="timer" id="timer">⏳ Offer reserved for <b id="timerVal">09:58</b></div>
+      <div class="disclaimer">Advertisement for Ragnarok Zero: Global. Clicking redirects you to the official download page. Offer subject to availability by region.</div>
     </div>
 
   </div>
 
 <script>
 (function(){
-  // Ajuste --vh pour gérer les barres d'UI mobiles (iOS Safari etc.)
+  // Adjust --vh to handle mobile browser UI bars (iOS Safari etc.)
   function setVh(){
     document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
   }
@@ -288,6 +285,12 @@
     });
   }
 
+  // Hide the play icon shortly after load to simulate autoplay
+  setTimeout(function(){
+    var play = document.getElementById('videoPlay');
+    if(play) play.classList.add('hide');
+  }, 1400);
+
   // Countdown timer
   var totalSeconds = 9*60 + 58;
   var timerVal = document.getElementById('timerVal');
@@ -303,33 +306,70 @@
   tick();
   setInterval(tick, 1000);
 
-  // Embers particle background
-  var canvas = document.getElementById('embers');
+  // ---- Animated "trailer" canvas: clashing runes/swords, embers, lightning flashes ----
+  var canvas = document.getElementById('videoCanvas');
   var ctx = canvas.getContext('2d');
-  var W,H,particles=[];
-  function resize(){
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
+  var W, H, dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-  function spawn(){
+  function resizeCanvas(){
+    var rect = canvas.parentElement.getBoundingClientRect();
+    W = rect.width; H = rect.height;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  var particles = [];
+  function spawnParticle(){
     particles.push({
       x: Math.random()*W,
-      y: H + 10,
-      r: 1 + Math.random()*2.2,
-      vy: 0.4 + Math.random()*0.9,
-      vx: (Math.random()-0.5)*0.4,
+      y: H + 6,
+      r: 1 + Math.random()*2.4,
+      vy: 0.5 + Math.random()*1.1,
+      vx: (Math.random()-0.5)*0.5,
       life: 0,
-      max: 200 + Math.random()*160,
+      max: 90 + Math.random()*90,
       hue: Math.random() > 0.5 ? '243,198,95' : '255,90,46'
     });
   }
 
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    if(particles.length < 50 && Math.random() < 0.55) spawn();
+  var t = 0;
+  var flashUntil = 0;
+  var nextFlash = 90 + Math.random()*120;
+
+  function drawBackground(){
+    var g = ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0, '#1c1420');
+    g.addColorStop(1, '#07060a');
+    ctx.fillStyle = g;
+    ctx.fillRect(0,0,W,H);
+
+    var glow = ctx.createRadialGradient(W*0.5,H*0.55,0, W*0.5,H*0.55, Math.max(W,H)*0.6);
+    glow.addColorStop(0, 'rgba(243,198,95,0.18)');
+    glow.addColorStop(1, 'rgba(243,198,95,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0,0,W,H);
+  }
+
+  function drawClash(){
+    var cx = W/2, cy = H/2;
+    var pulse = 1 + Math.sin(t*0.08)*0.06;
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.scale(pulse, pulse);
+    ctx.font = (Math.min(W,H)*0.34) + 'px serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.shadowBlur = 22;
+    ctx.shadowColor = 'rgba(243,198,95,0.85)';
+    ctx.fillStyle = 'rgba(244,234,217,0.92)';
+    ctx.fillText('⚔', 0, 2);
+    ctx.restore();
+  }
+
+  function drawParticles(){
+    if(particles.length < 40 && Math.random() < 0.5) spawnParticle();
     for(var i=particles.length-1;i>=0;i--){
       var p = particles[i];
       p.y -= p.vy; p.x += p.vx; p.life++;
@@ -342,9 +382,28 @@
       ctx.shadowColor = 'rgba('+p.hue+',0.8)';
       ctx.fill();
     }
-    requestAnimationFrame(draw);
   }
-  draw();
+
+  function drawFlash(){
+    if(t > nextFlash && t < nextFlash + 4){
+      var a = 1 - (t - nextFlash)/4;
+      ctx.fillStyle = 'rgba(255,255,255,'+(a*0.35)+')';
+      ctx.fillRect(0,0,W,H);
+    }
+    if(t > nextFlash + 40){
+      nextFlash = t + 90 + Math.random()*140;
+    }
+  }
+
+  function render(){
+    t++;
+    drawBackground();
+    drawParticles();
+    drawClash();
+    drawFlash();
+    requestAnimationFrame(render);
+  }
+  render();
 })();
 </script>
 </body>
