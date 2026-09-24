@@ -1,45 +1,42 @@
-# Déploiement — Recrutement formateurs vacataires
+# Backend Google Apps Script — Recrutement Formateurs Vacataires
 
-Même montage que l'annonce « Administrateur Réseaux Systèmes » :
-GitHub Pages (pages) + Google Apps Script (réception) + tinyurl (liens courts).
+Même montage que l'annonce Administrateur Réseaux Systèmes : ce script reçoit
+les candidatures envoyées par `index.html`, enregistre le CV dans Google Drive,
+ajoute une ligne dans Google Sheets et envoie un email de notification.
 
-## 1. Google Apps Script (réception des candidatures)
+Il est **séparé** du script AdminSys pour ne rien casser. Il réutilise le même
+dossier Drive `CVTheque`, dans un sous-dossier `CV_Formateurs`, et une nouvelle
+feuille `CVTheque_Formateurs`.
 
-1. Aller sur https://script.google.com → **Nouveau projet**, le nommer
-   « Candidatures formateurs ».
-2. Coller le contenu de `Code.gs` à la place du code par défaut, enregistrer.
-3. Choisir la fonction `setup` → **Exécuter** → accepter les autorisations
-   (Drive, Sheets, Gmail). Cela crée la Google Sheet « Candidatures -
-   Formateurs vacataires » et le dossier Drive « CV - Formateurs vacataires ».
-4. **Déployer → Nouveau déploiement** → type **Application Web** :
-   - Exécuter en tant que : **Moi**
+## Déploiement (à faire une seule fois)
+
+1. Aller sur https://script.google.com → **Nouveau projet**.
+2. Renommer le projet, par exemple `Recrutement_Formateurs`.
+3. Remplacer le contenu de `Code.gs` par celui du fichier `Code.gs` de ce dossier.
+4. Dans les paramètres du projet (⚙️), activer « Afficher le fichier manifeste
+   appsscript.json », puis remplacer son contenu par celui de `appsscript.json`.
+5. **Déployer → Nouveau déploiement** → type **Application Web** :
+   - Exécuter en tant que : **Moi (aelbiad@gmail.com)**
    - Qui a accès : **Tout le monde**
-5. Copier l'URL qui se termine par `/exec`.
-6. Dans `index.html`, remplacer `REMPLACER_PAR_URL_EXEC` par cette URL.
+6. Autoriser les permissions demandées (Drive, Sheets, Gmail).
+7. Copier l'URL `.../exec`.
+8. Dans `index.html`, remplacer `REMPLACER_PAR_URL_EXEC` par cette URL.
 
-> Si tu modifies `Code.gs` plus tard : **Déployer → Gérer les déploiements →
-> Modifier → Nouvelle version**, pour garder la même URL `/exec`.
+## Test rapide
 
-## 2. GitHub Pages (hébergement)
+Dans l'éditeur, choisir la fonction `testerScript` puis **Exécuter** : un email
+doit arriver et une ligne apparaître dans `CVTheque_Formateurs`.
 
-1. Créer un dépôt public `aelbiad-collab/recrutement-formateurs`.
-2. Y mettre à la racine : `landing.html`, `index.html`, `og-image.jpg`
-   (le dossier `gas/` est optionnel).
-3. **Settings → Pages** → Source : *Deploy from a branch* → `main` / `(root)`.
-4. Pages disponibles après une ou deux minutes :
-   - Accroche : `https://aelbiad-collab.github.io/recrutement-formateurs/landing.html`
-   - Formulaire : `https://aelbiad-collab.github.io/recrutement-formateurs/`
+## Mise à jour ultérieure
 
-Si le dépôt porte un autre nom, mettre à jour les URL `og:image` / `og:url`
-dans `landing.html` et `index.html`.
+Après modification de `Code.gs` : **Déployer → Gérer les déploiements → ✏️ →
+Nouvelle version → Déployer**. L'URL `.../exec` reste la même.
 
-## 3. Liens courts (tinyurl)
+## Hébergement et liens courts
 
-- `tinyurl.com/offre-formateur-dev` → page d'accroche (`landing.html`)
-- `tinyurl.com/poste-formateur-dev` → formulaire (`/`)
-
-## 4. Test
-
-Envoyer une candidature test avec un petit PDF, puis vérifier :
-ligne dans la Sheet, CV dans le dossier Drive, email reçu.
-Pour vérifier l'aperçu LinkedIn : https://www.linkedin.com/post-inspector/
+- GitHub Pages : dépôt public `aelbiad-collab/recrutement-formateurs`,
+  **Settings → Pages** → *Deploy from a branch* → `main` / `(root)`.
+  - Accroche : `https://aelbiad-collab.github.io/recrutement-formateurs/landing.html`
+  - Formulaire : `https://aelbiad-collab.github.io/recrutement-formateurs/`
+- tinyurl : `offre-formateur-dev` → accroche, `poste-formateur-dev` → formulaire.
+- Vérifier l'aperçu LinkedIn : https://www.linkedin.com/post-inspector/
