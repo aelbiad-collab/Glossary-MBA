@@ -34,9 +34,9 @@ Nouvelle version → Déployer**. L'URL `.../exec` reste la même.
 
 ## Hébergement et liens courts
 
-- GitHub Pages : dépôt public `aelbiad-collab/recrutement-formateurs`,
+- GitHub Pages : dépôt public `aelbiad-collab/recrutement-formateur`,
   **Settings → Pages** → *Deploy from a branch* → `main` / `(root)`.
-  - Accroche : `https://aelbiad-collab.github.io/recrutement-formateurs/landing.html`
-  - Formulaire : `https://aelbiad-collab.github.io/recrutement-formateurs/`
+  - Accroche : `https://aelbiad-collab.github.io/recrutement-formateur/landing.html`
+  - Formulaire : `https://aelbiad-collab.github.io/recrutement-formateur/`
 - tinyurl : `offre-formateur-dev` → accroche, `poste-formateur-dev` → formulaire.
 - Vérifier l'aperçu LinkedIn : https://www.linkedin.com/post-inspector/
