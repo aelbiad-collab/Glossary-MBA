@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1200px;height:627px;background:#0b1220;color:#e9eefb;font-family:'IBM Plex Sans',Arial,sans-serif;position:relative;overflow:hidden}
+body::before{content:'';position:absolute;inset:0;background-image:linear-gradient(#131d31 1px,transparent 1px),linear-gradient(90deg,#131d31 1px,transparent 1px);background-size:40px 40px;opacity:.6}
+.mono{font-family:'IBM Plex Mono',monospace}
+.left{position:absolute;left:64px;top:0;bottom:0;width:640px;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{display:flex;align-items:center;gap:12px;color:#c7d2e8;font-size:19px;margin-bottom:26px}
+.eyebrow::before{content:'';width:12px;height:12px;border-radius:50%;background:#f97316}
+h1{font-size:68px;line-height:1.05;font-weight:700;letter-spacing:-.01em;margin-bottom:28px}
+h1 span{color:#f97316}
+.chips{display:flex;flex-wrap:wrap;gap:10px;max-width:600px}
+.chips div{font-size:15px;background:#121b2e;border:1px solid #263a5c;border-left:2px solid #f97316;padding:7px 12px}
+svg{position:absolute;right:30px;top:40px}
+</style></head><body>
+<div class="left">
+  <div class="eyebrow">Recrutement · Institut de formation professionnelle privé</div>
+  <h1>Formateurs vacataires<br><span>en développement</span></h1>
+  <div class="chips mono">
+    <div>POO</div><div>Web statique</div><div>Web dynamique</div>
+    <div>Front-end · Back-end</div><div>Cloud native</div>
+  </div>
+</div>
+<svg width="440" height="550" viewBox="0 0 440 550" font-family="IBM Plex Mono, monospace" font-size="12" fill="#90a1c2">
+  <g stroke="#3a4f78" stroke-width="1.5" stroke-dasharray="5 6" fill="none">
+    <line x1="160" y1="100" x2="280" y2="100"/>
+    <line x1="110" y1="140" x2="190" y2="235"/>
+    <line x1="330" y1="140" x2="250" y2="235"/>
+    <line x1="190" y1="315" x2="110" y2="410"/>
+  </g>
+  <line x1="250" y1="315" x2="320" y2="405" stroke="#f97316" stroke-width="1.5" stroke-dasharray="5 6"/>
+  <g stroke-width="1.5">
+    <rect x="60" y="60" width="100" height="80" rx="4" fill="#1a2640" stroke="#3a4f78"/>
+    <rect x="280" y="60" width="100" height="80" rx="4" fill="#1a2640" stroke="#3a4f78"/>
+    <rect x="165" y="235" width="110" height="80" rx="4" fill="#1f1a14" stroke="#f97316" stroke-width="2"/>
+    <rect x="60" y="410" width="100" height="80" rx="4" fill="#1a2640" stroke="#3a4f78"/>
+    <circle cx="340" cy="450" r="48" fill="#1a2640" stroke="#f97316"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="110" y="98" fill="#c7d2e8" font-size="18">{ }</text><text x="110" y="122">CLASSE</text>
+    <text x="330" y="98" fill="#c7d2e8" font-size="18">&lt;/&gt;</text><text x="330" y="122">FRONT-END</text>
+    <text x="220" y="273" fill="#fdba74" font-size="18">API</text><text x="220" y="297">BACK-END</text>
+    <text x="110" y="448" fill="#c7d2e8" font-size="18">SQL</text><text x="110" y="472">DONNÉES</text>
+    <text x="340" y="448" fill="#fdba74" font-size="18">k8s</text><text x="340" y="472">CLOUD</text>
+  </g>
+</svg>
+</body></html>
